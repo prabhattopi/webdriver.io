@@ -23,4 +23,5 @@ describe("Ebay Product Search", () => {
     const searchCategory=$("#gh-cat option:nth-child(1)")
     expect(searchCategory).toHaveText("PC Laptops & Netoks")
   })
+  
 });
