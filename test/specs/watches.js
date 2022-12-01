@@ -1,3 +1,6 @@
+//alliace *as* in javaascript
+
+import { expect as chaiExpect } from "chai";
 describe("watches", () => {
   it("show the banner container", () => {
     browser.url("https://www.ebay.com/b/Wristwatches/31387/bn_2408451");
@@ -13,9 +16,14 @@ describe("watches", () => {
     expect(shopButton).toHaveLinkContaining("/Casio/");
     expect(shopButton).toBeClickable();
   });
-  it("should click the shop button and verify new url",()=>{
+  it("should click the shop button and verify new url", () => {
     const shopButton = $(".b-visualnav__tile:nth-child(1)");
-   shopButton.click();
-   expect(browser).toHaveUrl("https://www.ebay.com/b/Wristwatches/31387/bn_2408451")
-  })
+    shopButton.click();
+    const url = browser.getUrl();
+    chaiExpect("ebaydjfjf").to.include("ebay");
+
+    expect(browser).toHaveUrl(
+      "https://www.ebay.com/b/Wristwatches/31387/bn_2408451"
+    );
+  });
 });
