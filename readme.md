@@ -3,4 +3,6 @@
  ## Chai
  ## PageObjectModel
  ## Hooks
+ ## $$(findElements "Array")
+ ## Wait Commands
  

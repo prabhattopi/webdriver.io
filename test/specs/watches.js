@@ -8,12 +8,17 @@ describe("watches", () => {
   //   await browser.url('https://www.ebay.com')
   // })
 
-  //  afterEach(()=>{
+  //  afterEach(()=>
   //   browser.refresh()
   //  })
 
   before(async () => {
-    WatchesPage.open();
+      WatchesPage.open();
+        watchesPages.fashionLink.moveTo();
+    // await browser.pause(1000)//Implicit Wait    not recommended by the browser
+
+    await watchesPages.WatchesLink.waitForDisplayed({ timeout:1000 });
+    await watchesPages.WatchesLink.click();
   });
 
   it("should verify the watches category List", async () => {
@@ -21,14 +26,14 @@ describe("watches", () => {
     chaiExpect(watchesCategoryList).to.deep.equal([
       "Watches",
       "Wristwatches",
-      "Other Watches",
       "Pocket Watches",
+      "Other Watches",
     ]);
   });
   it("show the banner container", async () => {
     watchesPages.open();
     const promoBanner = $("div.title-banner__right-image");
-    await expect(promoBanner).toBeDisplayed();
+    await expect(promoBanner).toBeDisplayed();//explicit wait
   });
   it("Banner Title", async () => {
     await expect(WatchesPage.infoTitle).toHaveTextContaining("Wrist");
