@@ -1,29 +1,44 @@
 //alliace *as* in javaascript
 
 import { expect as chaiExpect } from "chai";
+import watchesPages from "../pages/watches.pages";
+import WatchesPage from '../pages/watches.pages'
 describe("watches", () => {
-  it("show the banner container", () => {
-    browser.url("https://www.ebay.com/b/Wristwatches/31387/bn_2408451");
-    const promoBanner = $("div.title-banner__right-image");
-    expect(promoBanner).toBeDisplayed();
-  });
-  it("Banner Title", () => {
-    const infoTitle = $("h1.title-banner__title");
-    expect(infoTitle).toHaveTextContaining("Wristwatch");
-  });
-  it("should contain link on list data button and verify", () => {
-    const shopButton = $(".b-visualnav__tile:nth-child(1)");
-    expect(shopButton).toHaveLinkContaining("/Casio/");
-    expect(shopButton).toBeClickable();
-  });
-  it("should click the shop button and verify new url", () => {
-    const shopButton = $(".b-visualnav__tile:nth-child(1)");
-    shopButton.click();
-    const url = browser.getUrl();
-    chaiExpect("ebaydjfjf").to.include("ebay");
 
-    expect(browser).toHaveUrl(
-      "https://www.ebay.com/b/Wristwatches/31387/bn_2408451"
+
+
+
+  after(async ()=>{
+    await browser.url('https://www.ebay.com')
+  })
+
+   afterEach(()=>{
+    browser.refresh()
+   })
+
+
+  it("show the banner container", async() => {
+    watchesPages.open()
+    const promoBanner = $("div.title-banner__right-image");
+    await expect(promoBanner).toBeDisplayed();
+  });
+  it("Banner Title", async() => {
+    
+    await expect(WatchesPage.infoTitle).toHaveTextContaining("Wrist");
+  });
+  it("should contain link on list data button and verify", async() => {
+ 
+    await expect(WatchesPage.shopButton).toHaveLinkContaining("/Casio/");
+    await expect(watchesPages.shopButton).toBeClickable();
+  });
+  it("should click the shop button and verify new url", async() => {
+ 
+    await watchesPages.shopButton.click();
+    const url = await browser.getUrl();
+    await  chaiExpect(url).to.include("/Casio-Watches/");
+
+    await expect(browser).toHaveUrl(
+      "https://www.ebay.com/b/Casio-Watches/31387/bn_2973204"
     );
   });
 });

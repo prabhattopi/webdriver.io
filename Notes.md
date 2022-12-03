@@ -7,3 +7,6 @@ Page Object Model is used when we need to write duplicate test for the diffrent 
   3.Improves redability
   
 
+// Hooks are of before and after (its written in describe block)
+// beforeEach and AfterEach
+
