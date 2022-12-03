@@ -7,12 +7,12 @@ describe("Ebay Product Search", () => {
       "Electronics, Cars, Fashion, Collectibles & More | eBay"
     );
   });
-  it("Should search for a product and verify the search text value", () => {
+  it("Should search for a product and verify the search text value", async () => {
     //always try with unique selectors
     // const searchInput = $("#gh-ac");
     // const searchButton = $("#gh-btn");
-    SearchPage.SearchInput.addValue("Laptop");
-    SearchPage.SearchBtn.click();
+    await SearchPage.SearchInput.addValue("Laptop");
+    await SearchPage.SearchBtn.click();
 
     // searchInput.addValue("Laptop");
     // searchButton.click();
@@ -24,6 +24,10 @@ describe("Ebay Product Search", () => {
     expect(browser).toHaveTitle("Laptop for sale | eBay");
   });
   it("search category should be updated", async () => {
-    await expect(SearchPage.category).toHaveText("All Categories");
+    await browser.waitUntil(async () => await SearchPage.category.getText()=== "PC Laptops & Netbooks"
+    ,{
+      timeout:3000
+    });
+    await expect(SearchPage.category).toHaveText("PC Laptops & Netbooks");
   });
 });
