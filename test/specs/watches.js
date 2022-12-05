@@ -1,8 +1,10 @@
 //alliace *as* in javaascript
 
 import { expect as chaiExpect } from "chai";
-import watchesPages from "../pages/watches.pages";
+
 import WatchesPage from "../pages/watches.pages";
+import resources from "../resources";
+import { waitAndClcik } from "../utilities/helper";
 describe("watches", () => {
   // after(async ()=>{
   //   await browser.url('https://www.ebay.com')
@@ -13,37 +15,32 @@ describe("watches", () => {
   //  })
 
   before(async () => {
-      WatchesPage.open();
-        watchesPages.fashionLink.moveTo();
+    WatchesPage.open();
+    WatchesPage.fashionLink.moveTo();
     // await browser.pause(1000)//Implicit Wait    not recommended by the browser
 
-    await watchesPages.WatchesLink.waitForDisplayed({ timeout:1000 });
-    await watchesPages.WatchesLink.click();
+    await waitAndClcik(WatchesPage.WatchesLink, 5000);
   });
 
   it("should verify the watches category List", async () => {
     const watchesCategoryList = await WatchesPage.getWatchesCategoryListText();
-    chaiExpect(watchesCategoryList).to.deep.equal([
-      "Watches",
-      "Wristwatches",
-      "Pocket Watches",
-      "Other Watches",
-    ]);
+    console.log(watchesCategoryList);
+    chaiExpect(watchesCategoryList).to.deep.equal(resources.watchesCategoryArray);
   });
   it("show the banner container", async () => {
-    watchesPages.open();
+    WatchesPage.open();
     const promoBanner = $("div.title-banner__right-image");
-    await expect(promoBanner).toBeDisplayed();//explicit wait
+    await expect(promoBanner).toBeDisplayed(); //explicit wait
   });
   it("Banner Title", async () => {
     await expect(WatchesPage.infoTitle).toHaveTextContaining("Wrist");
   });
   it("should contain link on list data button and verify", async () => {
     await expect(WatchesPage.shopButton).toHaveLinkContaining("/Casio/");
-    await expect(watchesPages.shopButton).toBeClickable();
+    await expect(WatchesPage.shopButton).toBeClickable();
   });
   it("should click the shop button and verify new url", async () => {
-    await watchesPages.shopButton.click();
+    await WatchesPage.shopButton.click();
     const url = await browser.getUrl();
     chaiExpect(url).to.include("/Casio-Watches/");
 

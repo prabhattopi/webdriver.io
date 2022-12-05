@@ -14,7 +14,7 @@ class SearchPage extends Page {
     return $("#gh-cat option:nth-child(1)")
   }
   open() {
-   super.open("https://www.ebay.com/");
+   super.open("/");
   }
 }
 export default new SearchPage();

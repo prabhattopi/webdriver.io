@@ -24,7 +24,7 @@ class WatchesPage extends Page {
     return $('.hl-cat-nav__sub-cat-col a[href*="Wrist"]');
   }
   open() {
-    super.open("https://www.ebay.com/");
+    super.open("/");
   }
   async getWatchesCategoryListText() {
     //array of Elements

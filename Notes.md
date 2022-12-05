@@ -17,5 +17,13 @@ waitCommands-->Some website wait before fetching so we can wait so it not give t
 help more stable test perform while waiting 
 now maza aaa gya masai ka testing karne me
 
+Creating helper function give help us to go with and restricted with duplication(//)
+
+put baseUrl in the configfile so we can not always hardCoded the things
+
+//escaping a test just write xdescribe()--->it will escape the test
+
+
+
 
 

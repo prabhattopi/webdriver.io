@@ -1,11 +1,11 @@
 import SearchPage from "../pages/search.page";
+import resources from "../resources";
+import { waitforTextChange } from "../utilities/helper";
 
 describe("Ebay Product Search", () => {
   it("should open the url and verify the title", async () => {
     SearchPage.open();
-    await expect(browser).toHaveTitle(
-      "Electronics, Cars, Fashion, Collectibles & More | eBay"
-    );
+    await expect(browser).toHaveTitle(resources.homeTitle);
   });
   it("Should search for a product and verify the search text value", async () => {
     //always try with unique selectors
@@ -18,16 +18,13 @@ describe("Ebay Product Search", () => {
     // searchButton.click();
 
     //assertion
-    expect(SearchPage.SearchInput).toHaveValue("Laptop");
+    await expect(SearchPage.SearchInput).toHaveValue("Laptop");
   });
-  it("should redirect to a new page and verify the title", () => {
-    expect(browser).toHaveTitle("Laptop for sale | eBay");
+  it("should redirect to a new page and verify the title", async () => {
+    await expect(browser).toHaveTitle(resources.laptopTitle);
   });
   it("search category should be updated", async () => {
-    await browser.waitUntil(async () => await SearchPage.category.getText()=== "PC Laptops & Netbooks"
-    ,{
-      timeout:3000
-    });
+    await waitforTextChange(SearchPage.category, "PC Laptops & Netbooks", 3000);
     await expect(SearchPage.category).toHaveText("PC Laptops & Netbooks");
   });
 });
